@@ -89,7 +89,7 @@
   "raisingProposedTipsContent": "Before the indicator rasing started, the tips here are about to reamind CAF The key questions to better facilitate the process this will help CAF get better insights from participants.",
   "viewTips": "មើលបន្ថែម",
   "viewAll": "មើលបន្ថែម",
-  "listUser": "តារាងអ្នកចូលរួម",
+  "listUser": "ចំនួនអ្នកស្នើ",
   "no": "លេខអ្នកចូលរួម",
   "age": "អាយុ",
   "enterAge": "បញ្ចូល​អាយុ​",
@@ -142,7 +142,7 @@
   "tipsDetails": "គន្លឹះ - ជំនួយក្នុងការសម្របសម្រួល",
   "welcomeTo": "សូមស្វាគមន៍មកកាន់",
   "scorecardApp": "ប័ណ្ណដាក់ពិន្ទុឌីជីថល",
-  "proposeNewCriteria": "បំផុសលក្ខណៈវិនិច្ឆ័យថ្មី",
+  "proposeNewCriteria": "លក្ខណៈវិនិច្ឆ័យថ្មី",
   "edit": "កែ​ប្រែ​",
   "play": "ចាក់​សម្លេង​",
   "allCriteria": "លក្ខណៈវិនិច្ឆ័យទាំង​អស់​",
@@ -273,5 +273,6 @@
   "chooseImage": "ជ្រើសរើសរូបភាព",
   "takePhoto": "ថតរូប",
   "viewImage": "មើលរូបភាព",
-  "noImageIsSelected": "មិនមានរូបភាពត្រូវបានជ្រើសរើស"
+  "noImageIsSelected": "មិនមានរូបភាពត្រូវបានជ្រើសរើស",
+  "yr": "ឆ្នាំ"
 }

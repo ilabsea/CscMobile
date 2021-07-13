@@ -1,8 +1,10 @@
 import React, {Component} from 'react';
-import {View, StyleSheet} from 'react-native';
+import {View, StyleSheet, TouchableOpacity} from 'react-native';
 import {Text} from 'native-base';
 import {LocalizationContext} from '../Translations';
 import UserTable from './UserTable';
+import ParticipantAccordion from '../ParticipantAccordion/ParticipantAccordion';
+
 import { connect } from 'react-redux';
 import { getRaisedParticipants } from '../../services/participant_service';
 import { FontFamily } from '../../assets/stylesheets/theme/font';
@@ -19,6 +21,13 @@ const responsiveStyles = getDeviceStyle(RaisingProposedTabletStyles, RaisingProp
 
 class ListUser extends Component {
   static contextType = LocalizationContext;
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      accordionType: 'participant'
+    }
+  }
 
   getParticipant = () => {
     const raisedParticipants = getRaisedParticipants(this.props.scorecardUUID);
@@ -56,13 +65,35 @@ class ListUser extends Component {
     this.props.navigation.navigate('CreateNewIndicator', {scorecard_uuid: this.props.scorecardUUID, participant_uuid: participant_uuid});
   }
 
+  renderAccordionOptions() {
+    const isCriteriaActive = this.state.accordionType == 'criteria';
+    const isParticipantActive = this.state.accordionType == 'participant';
+
+    return (
+      <View style={{flexDirection: 'row', marginTop: 20}}>
+        <TouchableOpacity onPress={() => this.setState({ accordionType: 'participant' })}
+          style={[responsiveStyles.filterBtn, { marginRight: 10 }, isParticipantActive ? responsiveStyles.activeBtn : {}]}
+        >
+          <Text style={[responsiveStyles.btnText, isParticipantActive ? responsiveStyles.activeText : {}]}>អ្នកស្នើ</Text>
+        </TouchableOpacity>
+        <TouchableOpacity onPress={() => this.setState({ accordionType: 'criteria' })}
+          style={[responsiveStyles.filterBtn, isCriteriaActive ? responsiveStyles.activeBtn : {}]}
+        >
+          <Text style={[responsiveStyles.btnText, isCriteriaActive ? responsiveStyles.activeText : {}]}>លក្ខណៈវិនិច្ឆ័យ</Text>
+        </TouchableOpacity>
+      </View>
+    )
+  }
+
   render() {
     const {translations} = this.context;
 
     return (
-      <View style={{marginTop: 18}}>
+      <View>
         <View style={styles.headingContainer}>
-          <Text style={[styles.headingTitle, responsiveStyles.headingTitle]}>{translations['listUser']}</Text>
+          <Text style={[styles.headingTitle, responsiveStyles.headingTitle]}>
+            { translations.listUser }: { this.props.numberOfProposedParticipant }/{ this.props.numberOfParticipant } {translations.pax}
+          </Text>
 
           <View style={{flexGrow: 1, alignItems: 'flex-end'}}>
             <ParticipantInfo
@@ -75,7 +106,15 @@ class ListUser extends Component {
           </View>
         </View>
 
-        { this.renderUserTable() }
+        {/* { this.renderUserTable() } */}
+
+        { this.renderAccordionOptions() }
+
+        <ParticipantAccordion
+          scorecardUuid={this.props.scorecardUUID}
+          participants={this.getParticipant()}
+          navigation={this.props.navigation}
+        />
       </View>
     );
   }
@@ -91,7 +130,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     fontFamily: FontFamily.title,
     color: '#22354c',
-  },
+  }
 });
 
 function mapStateToProps(state) {
