@@ -110,11 +110,13 @@ class ListUser extends Component {
 
         { this.renderAccordionOptions() }
 
-        <ParticipantAccordion
-          scorecardUuid={this.props.scorecardUUID}
-          participants={this.getParticipant()}
-          navigation={this.props.navigation}
-        />
+        { this.state.accordionType == 'participant' &&
+          <ParticipantAccordion
+            scorecardUuid={this.props.scorecardUUID}
+            participants={this.getParticipant()}
+            navigation={this.props.navigation}
+          />
+        }
       </View>
     );
   }

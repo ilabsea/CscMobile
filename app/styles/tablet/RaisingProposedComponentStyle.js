@@ -10,7 +10,6 @@ const RaisingProposedComponentStyles = StyleSheet.create({
     marginTop: -2
   },
   filterBtn: {
-    borderWidth: 1,
     borderRadius: 25,
     paddingHorizontal: 20,
     paddingVertical: 5,

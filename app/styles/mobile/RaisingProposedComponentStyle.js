@@ -17,7 +17,7 @@ const RaisingProposedComponentStyles = StyleSheet.create({
     borderRadius: 25,
     paddingHorizontal: 20,
     paddingVertical: 5,
-    backgroundColor: Color.lightGrayColor
+    backgroundColor: Color.lightGrayColor,
   },
   activeBtn: {
     backgroundColor: Color.clickableColor

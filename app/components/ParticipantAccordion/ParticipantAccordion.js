@@ -44,7 +44,7 @@ class ParticipantAccordion extends Component {
 
   _renderOrderNumber(order) {
     return (
-      <View style={{backgroundColor: Color.lightGrayColor, width: 30, height: 30, borderRadius: 50, alignItems: 'center', justifyContent: 'center'}}>
+      <View style={styles.orderNumberContainer}>
         <Text style={{fontWeight: 'bold', color: Color.whiteColor, marginTop: -2}}>{order}</Text>
       </View>
     )
