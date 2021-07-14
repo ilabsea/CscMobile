@@ -2,6 +2,9 @@ import { ERROR_SCORECARD_COMPLETED, ERROR_SCORECARD_EXECUTED } from '../constant
 import Moment from 'moment';
 import moment from "moment/min/moment-with-locales";
 import { environment } from '../config/environment';
+import { SCORECARD_RESULT } from '../constants/scorecard_step_constant';
+import { selfAssessment } from '../constants/scorecard_constant';
+import Color from '../themes/color';
 
 const DATE_FORMAT = 'ddd MMM DD YYYY';
 
@@ -11,6 +14,10 @@ const scorecardHelper = (() => {
     getScorecardErrorType,
     isExpired,
     getTranslatedRemoveDate,
+    getStatusIcon,
+    getSortedSubmittedScorecard,
+    iconColor,
+    iconBorderColor,
   };
 
   function isScorecardAvailable(scorecard) {
@@ -37,6 +44,35 @@ const scorecardHelper = (() => {
     expiredDate = Moment(expiredDate).format('YYYY-MM-DD');
 
     return moment(expiredDate).locale(locale).format('LL');
+  }
+
+  function getStatusIcon(scorecard) {
+    if (scorecard.isUploaded)
+      return 'lock';
+    else if (scorecard.status != SCORECARD_RESULT)
+      return 'hourglass-half';
+    else if (scorecard.status == SCORECARD_RESULT)
+      return 'check';
+  }
+
+  function getSortedSubmittedScorecard(scorecards) {
+    return scorecards.sort((a, b) => (a.isUploaded === b.isUploaded) ? 0 : a.isUploaded ? 1 : -1);
+  }
+
+  function iconColor(scorecard) {
+    if (scorecard.isUploaded)
+      return Color.lightGrayColor;
+    else if (scorecard.status == SCORECARD_RESULT)
+      return Color.successColor;
+
+    return Color.clickableColor;
+  }
+
+  function iconBorderColor(scorecard) {
+    if (scorecard.scorecard_type == selfAssessment)
+      return Color.lightBlueColor;
+
+    return Color.clickableColor;
   }
 })();
 

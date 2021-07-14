@@ -23,6 +23,7 @@ import { set } from '../../actions/currentScorecardAction';
 
 import { getDeviceStyle } from '../../utils/responsive_util';
 import { mdLabelSize } from '../../constants/mobile_font_size_constant';
+import scorecardHelper from '../../helpers/scorecard_helper';
 
 class ScorecardList extends Component {
   static contextType = LocalizationContext;
@@ -34,6 +35,8 @@ class ScorecardList extends Component {
       visibleModal: false,
       selectedScorecard: null,
       scorecards: Scorecard.getAll(),
+      secPosition: 0,
+      stickyHeaderIndex: 0,
     }
   }
 
@@ -62,6 +65,18 @@ class ScorecardList extends Component {
         />
       )
     ));
+  }
+
+  renderScorecardList(scorecards) {
+    const sortedScorecards = scorecardHelper.getSortedSubmittedScorecard(scorecards);
+
+    return (
+      <View key={uuidv4()}>
+        <View>
+          { this.renderList(sortedScorecards) }
+        </View>
+      </View>
+    )
   }
 
   onPress(scorecard) {
@@ -103,6 +118,7 @@ class ScorecardList extends Component {
     const completedStatus = '5';
     const progressScorecards = this.state.scorecards.filter(s => s.status != completedStatus);
     const completeScorecards = this.state.scorecards.filter(s => s.status == completedStatus);
+
     const titleSize = getDeviceStyle(16, wp(mdLabelSize));
     const scorecardUuid = this.state.selectedScorecard ? this.state.selectedScorecard.uuid : '';
 
@@ -111,24 +127,36 @@ class ScorecardList extends Component {
     }
 
     return (
-      <ScrollView>
-        <View style={{flex: 1, padding: 16}}>
-          { !!progressScorecards.length && <Text style={{marginBottom: 10, fontSize: titleSize}}>{translations.progressScorecards}</Text>}
-          { this.renderList(progressScorecards) }
+      <View>
+        <ScrollView contentContainerStyle={{backgroundColor: '#eee', flexGrow: 1, paddingBottom: 20}} stickyHeaderIndices={[0, 2]}>
+          { !!progressScorecards.length &&
+            <View style={{backgroundColor: '#eee', paddingHorizontal: 16, paddingVertical: 10}}>
+              <Text style={{fontSize: titleSize}}>
+                { translations.progressScorecards }
+              </Text>
+            </View>
+          }
+          { this.renderScorecardList(progressScorecards) }
 
-          { !!completeScorecards.length && <Text style={{marginBottom: 10, fontSize: titleSize}}>{translations.completeScorecards}</Text>}
-          { this.renderList(completeScorecards) }
+          { !!completeScorecards.length &&
+            <View style={{backgroundColor: '#eee', paddingHorizontal: 16, paddingVertical: 10}}>
+              <Text style={{fontSize: titleSize}}>
+                { translations.completeScorecards }
+              </Text>
+            </View>
+          }
+          { this.renderScorecardList(completeScorecards) }
+        </ScrollView>
 
-          <MessageModal
-            visible={this.state.visibleModal}
-            onDismiss={() => this.setState({visibleModal: false})}
-            description={translations.formatString(translations.doYouWantToDeleteThisScorecard, scorecardUuid)}
-            hasConfirmButton={true}
-            confirmButtonLabel={translations.ok}
-            onPressConfirmButton={() => this._confirmDelete()}
-          />
-        </View>
-      </ScrollView>
+        <MessageModal
+          visible={this.state.visibleModal}
+          onDismiss={() => this.setState({visibleModal: false})}
+          description={translations.formatString(translations.doYouWantToDeleteThisScorecard, scorecardUuid)}
+          hasConfirmButton={true}
+          confirmButtonLabel={translations.ok}
+          onPressConfirmButton={() => this._confirmDelete()}
+        />
+      </View>
     )
   }
 }

@@ -138,13 +138,13 @@ class NewScorecard extends Component {
           errorType: ERROR_SCORECARD,
         });
       }
-      else if (!scorecardHelper.isScorecardAvailable(responseData)) {
-        this.setState({isLoading: false});
-        this.setState({
-          visibleModal: true,
-          errorType: scorecardHelper.getScorecardErrorType(responseData),
-        });
-      }
+      // else if (!scorecardHelper.isScorecardAvailable(responseData)) {
+      //   this.setState({isLoading: false});
+      //   this.setState({
+      //     visibleModal: true,
+      //     errorType: scorecardHelper.getScorecardErrorType(responseData),
+      //   });
+      // }
       else {
         this.uuid = responseData.uuid;
         Scorecard.upsert(responseData);

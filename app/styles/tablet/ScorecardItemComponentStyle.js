@@ -30,10 +30,6 @@ const ScorecardItemComponentStyles = StyleSheet.create({
   lockIcon: {
     fontSize: 28,
   },
-  swipeableContainer: {
-    maxHeight: 200,
-    marginBottom: 20,
-  },
   deleteContainer: {
     backgroundColor: Color.redColor,
     maxHeight: 157,

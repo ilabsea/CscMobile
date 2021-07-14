@@ -36,15 +36,12 @@ const ScorecardItemComponentStyles = StyleSheet.create({
   lockIcon: {
     fontSize: wp('5%'),
   },
-  swipeableContainer: {
-    marginBottom: 12,
-  },
   deleteContainer: {
     backgroundColor: Color.redColor,
     width: 70,
     justifyContent: 'center',
     alignItems: 'center',
-    height: '92%',
+    height: '100%'
   },
   deleteLabel: {
     fontSize: wp(mdLabelSize)

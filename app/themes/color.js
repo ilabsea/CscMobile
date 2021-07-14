@@ -27,6 +27,8 @@ const Color = {
   lightBlackColor: '#2e2e2e',
   paleBlackColor: '#787878',
   loadingBackgroundColor: 'rgba(227, 107, 51, 0.6)',
+  lightBlueColor: '#7ea0fe',
+  lightGreenColor: '#52c72c',
 };
 
 export default Color;

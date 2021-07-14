@@ -158,6 +158,8 @@ class ScorecardPreference extends Component {
         isFinishDownloaded: true,
         isDownloading: false,
       });
+
+      Scorecard.update(this.props.route.params.scorecard_uuid, { downloaded: true });
     }
   }
 

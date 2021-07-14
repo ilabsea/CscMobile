@@ -19,6 +19,9 @@ const scorecardDownloadPhases = {
   6: 'failed',
 }
 
+const selfAssessment = 'self_assessment';
+const commnunityScorecard =  'community_scorecard';
+
 export {
   scorecardDownloadPhases,
   indicatorPhase,
@@ -29,4 +32,6 @@ export {
   langRatingScaleAudioPhase,
   indicatorImagePhase,
   scorecardDownloadSteps,
+  selfAssessment,
+  commnunityScorecard
 };

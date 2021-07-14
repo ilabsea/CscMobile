@@ -7,12 +7,12 @@ import {
 } from 'react-native';
 import Swipeable from 'react-native-gesture-handler/Swipeable';
 import { RectButton } from 'react-native-gesture-handler';
+import { Divider } from 'react-native-paper';
+import AppIcon from 'react-native-vector-icons/FontAwesome';
 
 import { LocalizationContext } from '../components/Translations';
-import { Icon } from 'native-base';
 import Color from '../themes/color';
 import uuidV4 from '../utils/uuidv4';
-import scorecardProgress from '../db/jsons/scorecardProgress';
 import styles from '../themes/scorecardListItemStyle';
 import votingCriteriaService from '../services/votingCriteriaService';
 import scorecardHelper from '../helpers/scorecard_helper';
@@ -34,19 +34,11 @@ export default class ScorecardItem extends Component {
   }
 
   renderStatusIcon(scorecard) {
-    const { translations } = this.context;
-    let wrapperStyle = scorecard.isInLastPhase ? {} : { backgroundColor: Color.headerColor };
-    let iconName     = scorecard.isInLastPhase ? 'check' : 'file-alt';
+    const icon = scorecardHelper.getStatusIcon(scorecard);
 
     return (
-      <View style={[styles.statusIconWrapper, wrapperStyle]}>
-        <Icon name={iconName} type="FontAwesome5" style={responsiveStyles.statusIcon} />
-        { scorecard.isUploaded && <Icon name={'lock-closed'}  style={[{position: 'absolute', bottom: 6, right: 6, color: Color.whiteColor}, responsiveStyles.lockIcon]}/> }
-        { (scorecard.finished && !scorecard.isUploaded) &&
-          <Text style={{position: 'absolute', bottom: 2, fontSize: getDeviceStyle(16, 11), color: Color.whiteColor, textAlign: 'center', width: '100%'}}>
-            { translations.finished }
-          </Text>
-        }
+      <View style={{borderWidth: 1.2, width: 35, height: 35, justifyContent: 'center', alignItems: 'center', borderRadius: 30, borderColor: scorecardHelper.iconBorderColor(scorecard)}}>
+        <AppIcon name={icon} size={20} color={scorecardHelper.iconColor(scorecard)} />
       </View>
     )
   }
@@ -72,39 +64,31 @@ export default class ScorecardItem extends Component {
   render() {
     const { translations, appLanguage } = this.context;
     let scorecard = this.props.scorecard || {};
-    let status = !!scorecard.status ? translations[scorecardProgress.filter(x => x.value == scorecard.status)[0].label] : '';
     let criteriasSize = votingCriteriaService.getAll(scorecard.uuid).length;
     const subTextStyles = { paddingTop: getDeviceStyle(2, 1), height: getDeviceStyle(27, 23) };
 
     return (
+
       <Swipeable
         ref={ref => { this.itemRef = ref }}
         key={uuidV4()}
         enabled={!scorecard.isUploaded}
         renderRightActions={this.renderDeleteAction}
-        containerStyle={responsiveStyles.swipeableContainer}
       >
         <TouchableOpacity
-          key={uuidV4()}
-          onPress={ () => this.props.onPress() }
-          style={[styles.listItem, styles.card, { maxHeight: 185 }]}>
+          style={{height: 70, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15, backgroundColor: Color.whiteColor}}
+        >
+          {this.renderStatusIcon(scorecard)}
 
-          { this.renderStatusIcon(scorecard) }
-
-          <View style={styles.contentWrapper}>
-            <View style={{flexDirection: 'row', alignItems: 'center', paddingRight: 20, marginTop: -5, marginBottom: -6}}>
-              <Text style={styles.title}>ID: {scorecard.uuid} </Text>
-              <Text style={responsiveStyles.subTitle} numberOfLines={1}>({scorecard.subTitle})</Text>
+          <View style={{flex: 1, marginLeft: 15}}>
+            <View style={{flexDirection: 'row'}}>
+              <Text style={[{fontSize: 14, flex: 1}]}>{ scorecard.uuid }</Text>
+              <Text style={[styles.subText, subTextStyles, {marginTop: 2}]}>{translations.numberOfCriteria}: {criteriasSize}</Text>
             </View>
 
-            <View style={styles.subTextWrapper}>
-              <Icon name='people' style={styles.subTextIcon} />
-              <Text style={[styles.subText, subTextStyles]}>{translations.numberOfCriteria}: {criteriasSize}</Text>
-            </View>
-
-            <View style={[styles.subTextWrapper, { paddingVertical: getDeviceStyle(0, 2) }]}>
-              <Icon name='document-text' style={styles.subTextIcon} />
-              <Text style={[styles.subText, subTextStyles]}>{translations.status}: {status}</Text>
+            <View style={{flexDirection: 'row', paddingRight: 10, alignItems: 'center'}}>
+              <AppIcon name='map-marker' size={14} color={Color.grayColor} style={{marginRight: 5, marginTop: -4}} />
+              <Text numberOfLines={1} style={[styles.subText, { marginLeft: 0, color: Color.grayColor}]}>{scorecard.province} {scorecard.district} {scorecard.commune}</Text>
             </View>
 
             { scorecard.isUploaded &&
@@ -112,15 +96,9 @@ export default class ScorecardItem extends Component {
                 {translations.toBeRemovedOn}: { scorecardHelper.getTranslatedRemoveDate(scorecard.uploaded_date, appLanguage) }
               </Text>
             }
-
-            <View style={{flex: 1}}></View>
-
-            <View style={[styles.viewDetail, responsiveStyles.viewDetailContainer]}>
-              <Text style={[{color: Color.headerColor}, responsiveStyles.viewDetailLabel]}>{translations['viewDetail']}</Text>
-              <Icon name='chevron-forward-outline' style={[{color: Color.headerColor}, responsiveStyles.viewDetailIcon]} />
-            </View>
           </View>
         </TouchableOpacity>
+        <Divider style={{backgroundColor: '#b3b3b3'}} />
       </Swipeable>
     )
   }
