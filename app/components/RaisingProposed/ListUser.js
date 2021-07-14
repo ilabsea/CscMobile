@@ -4,6 +4,7 @@ import {Text} from 'native-base';
 import {LocalizationContext} from '../Translations';
 import UserTable from './UserTable';
 import ParticipantAccordion from '../ParticipantAccordion/ParticipantAccordion';
+import CriteriaAccordion from '../CriteriaAccordion/CriteriaAccordion';
 
 import { connect } from 'react-redux';
 import { getRaisedParticipants } from '../../services/participant_service';
@@ -110,12 +111,14 @@ class ListUser extends Component {
 
         { this.renderAccordionOptions() }
 
-        { this.state.accordionType == 'participant' &&
+        { this.state.accordionType == 'participant' ?
           <ParticipantAccordion
             scorecardUuid={this.props.scorecardUUID}
             participants={this.getParticipant()}
             navigation={this.props.navigation}
           />
+          :
+          <CriteriaAccordion scorecardUuid={this.props.scorecardUUID} />
         }
       </View>
     );

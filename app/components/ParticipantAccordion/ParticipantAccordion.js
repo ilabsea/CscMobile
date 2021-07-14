@@ -100,7 +100,7 @@ class ParticipantAccordion extends Component {
   _renderCriterias(criterias) {
     return criterias.map((criteria, index) => {
       return (
-        <View>
+        <View key={uuidv4()}>
           <Text style={styles.itemValueText}>{ criteria.indicatorable_name }</Text>
           { index < criterias.length - 1 && <Divider style={{backgroundColor: '#b3b3b3', marginVertical: 8}}/> }
         </View>
