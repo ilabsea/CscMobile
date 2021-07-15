@@ -28,6 +28,7 @@ import AboutScreen from '../screens/About/About';
 import SelectedImageScreen from '../screens/SelectedImage/SelectedImage';
 
 import OfflineInstructionScreen from '../screens/OfflineInstruction/OfflineInstruction';
+import FilterScorecardScreen from '../screens/FilterScorecard/FilterScorecard';
 
 // Util and components
 import Color from '../themes/color';
@@ -240,6 +241,13 @@ function AppNavigator() {
         options={({navigator}) => ({
           header: () => null,
         })}
+      />
+      <Stack.Screen
+        name="FilterScorecardScreen"
+        component={FilterScorecardScreen}
+        options={{
+          title: translations.filterScorecard,
+        }}
       />
     </Stack.Navigator>
   );

@@ -2,9 +2,9 @@ import { ERROR_SCORECARD_COMPLETED, ERROR_SCORECARD_EXECUTED } from '../constant
 import Moment from 'moment';
 import moment from "moment/min/moment-with-locales";
 import { environment } from '../config/environment';
-// import { SCORECARD_RESULT } from '../constants/scorecard_step_constant';
 import { selfAssessment } from '../constants/scorecard_constant';
 import Color from '../themes/color';
+import Scorecard from '../models/Scorecard';
 
 const DATE_FORMAT = 'ddd MMM DD YYYY';
 
@@ -15,9 +15,9 @@ const scorecardHelper = (() => {
     isExpired,
     getTranslatedRemoveDate,
     getStatusIcon,
-    getSortedSubmittedScorecard,
     iconColor,
     iconBorderColor,
+    getScorecardLocations,
   };
 
   function isScorecardAvailable(scorecard) {
@@ -55,10 +55,6 @@ const scorecardHelper = (() => {
     return 'hourglass-half';
   }
 
-  function getSortedSubmittedScorecard(scorecards) {
-    return scorecards.sort((a, b) => (a.isUploaded === b.isUploaded) ? 0 : a.isUploaded ? 1 : -1);
-  }
-
   function iconColor(scorecard) {
     if (scorecard.isUploaded)
       return Color.lightGrayColor;
@@ -73,6 +69,21 @@ const scorecardHelper = (() => {
       return Color.lightBlueColor;
 
     return Color.clickableColor;
+  }
+
+  function getScorecardLocations() {
+    const provinces = Scorecard.getAllProvinces();
+    let newProvinces = [];
+
+    provinces.map(province => {
+      const item = { label: province, isSelected: false };
+
+      newProvinces.push(item);
+    });
+
+    newProvinces = newProvinces.sort((a, b) => a.label > b.label)
+
+    return newProvinces;
   }
 })();
 

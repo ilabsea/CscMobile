@@ -16,7 +16,9 @@ class BottomButton extends Component {
         <View style={{width: 40}} />
         <Text style={styles.buttonLabel}>{this.props.label}</Text>
         <View style={{width: 40, alignItems: 'flex-end'}}>
-          <Icon name={iconName} style={styles.buttonIcon} />
+          { iconName != 'none' &&
+            <Icon name={iconName} style={styles.buttonIcon} />
+          }
         </View>
       </Button>
     );

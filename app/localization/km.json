@@ -168,7 +168,7 @@
   "optionNo": "មិនមាន",
   "numberOfCriteria": "ចំនួនលក្ខណៈវិនិច្ឆ័យ",
   "status": "ដំណាក់កាល",
-  "progressScorecards": "ប័ណ្ណដាក់ពិន្ទុដែលធ្វើមិនទាន់ចប់",
+  "progressScorecards": "ប័ណ្ណដាក់ពិន្ទុកំពុងដំណើរការ",
   "completeScorecards": "ប័ណ្ណដាក់ពិន្ទុដែលបានធ្វើចប់",
   "deletedScorecard": "លុបប័ណ្ណដាក់ពិន្ទុ",
   "theScorecardDeleted": "ប័ណ្ណដាក់ពិន្ទុនេះត្រូវបានលុប!",
@@ -274,5 +274,10 @@
   "takePhoto": "ថតរូប",
   "viewImage": "មើលរូបភាព",
   "noImageIsSelected": "មិនមានរូបភាពត្រូវបានជ្រើសរើស",
-  "submittedScorecards": "ប័ណ្ណដាក់ពិន្ទុដែលបានដាក់ស្នើរួច"
+  "submittedScorecards": "ប័ណ្ណដាក់ពិន្ទុដែលបានដាក់ស្នើរួច",
+  "filterScorecard": "ស្វែងរកប័ណ្ណដាក់ពិន្ទុ",
+  "searchLocation": "ស្វែងរកទីតាំង",
+  "in_progress": "កំពុងដំណើរការ",
+  "submitted": "បានដាក់ស្នើរួច",
+  "scorecardLocation": "ទីតាំងអនុវត្តប័ណ្គដាក់ពិន្ទុ"
 }

@@ -274,5 +274,10 @@
   "takePhoto": "Take photo",
   "viewImage": "View image",
   "noImageIsSelected": "No image is selected",
-  "submittedScorecards": "Submitted scorecards"
+  "submittedScorecards": "Submitted scorecards",
+  "filterScorecard": "Filter scorecard",
+  "searchLocation": "Search location",
+  "in_progress": "In progress",
+  "submitted": "Submitted",
+  "scorecardLocation": "Scorecard location"
 }

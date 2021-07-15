@@ -23,7 +23,6 @@ import { set } from '../../actions/currentScorecardAction';
 
 import { getDeviceStyle } from '../../utils/responsive_util';
 import { mdLabelSize } from '../../constants/mobile_font_size_constant';
-import scorecardHelper from '../../helpers/scorecard_helper';
 
 class ScorecardList extends Component {
   static contextType = LocalizationContext;
@@ -68,13 +67,9 @@ class ScorecardList extends Component {
   }
 
   renderScorecardList(scorecards) {
-    const sortedScorecards = scorecardHelper.getSortedSubmittedScorecard(scorecards);
-
     return (
       <View key={uuidv4()}>
-        <View>
-          { this.renderList(sortedScorecards) }
-        </View>
+        { this.renderList(scorecards) }
       </View>
     )
   }

@@ -22,6 +22,17 @@ const scorecardDownloadPhases = {
 const selfAssessment = 'self_assessment';
 const commnunityScorecard =  'community_scorecard';
 
+const scorecardStatuses = [
+  { label: 'in_progress', value: 'in-progress' },
+  { label: 'finished', value: 'finished' },
+  { label: 'submitted', value: 'submitted' }
+];
+
+const scorecardTypes = [
+  { label: 'self_assessment', value: 'self-assessment'},
+  { label: 'community_scorecard', value: 'community-scorecard'}
+];
+
 export {
   scorecardDownloadPhases,
   indicatorPhase,
@@ -33,5 +44,7 @@ export {
   indicatorImagePhase,
   scorecardDownloadSteps,
   selfAssessment,
-  commnunityScorecard
+  commnunityScorecard,
+  scorecardStatuses,
+  scorecardTypes,
 };

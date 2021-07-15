@@ -75,7 +75,7 @@ export default class ScorecardItem extends Component {
         enabled={!scorecard.isUploaded}
         renderRightActions={this.renderDeleteAction}
       >
-        <TouchableOpacity
+        <TouchableOpacity onPress={this.props.onPress}
           style={{height: 70, flexDirection: 'row', alignItems: 'center', paddingHorizontal: 15, backgroundColor: Color.whiteColor}}
         >
           {this.renderStatusIcon(scorecard)}

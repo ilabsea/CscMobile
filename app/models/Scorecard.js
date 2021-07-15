@@ -17,6 +17,7 @@ const Scorecard = (() => {
     hasUnsubmitted,
     getMilestone,
     getSubmittedExpired,
+    getAllProvinces,
   }
 
   function getAll() {
@@ -90,6 +91,13 @@ const Scorecard = (() => {
     }
 
     return expiredScorecards;
+  }
+
+  function getAllProvinces() {
+    const scorecards = getAll();
+    const provinces = [...new Set(scorecards.map(scorecard => scorecard.province))];
+
+    return provinces;
   }
 
   // Private
