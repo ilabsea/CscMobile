@@ -273,5 +273,6 @@
   "chooseImage": "Choose image",
   "takePhoto": "Take photo",
   "viewImage": "View image",
-  "noImageIsSelected": "No image is selected"
+  "noImageIsSelected": "No image is selected",
+  "submittedScorecards": "Submitted scorecards"
 }

@@ -113,13 +113,23 @@ class ScorecardList extends Component {
     });
   }
 
+  renderSectionTitle(title) {
+    const titleSize = getDeviceStyle(16, wp(mdLabelSize));
+
+    return (
+      <View style={{backgroundColor: '#eee', paddingHorizontal: 16, paddingVertical: 10}}>
+        <Text style={{fontSize: titleSize}}>
+          { title }
+        </Text>
+      </View>
+    )
+  }
+
   render() {
     const { translations } = this.context;
-    const completedStatus = '5';
-    const progressScorecards = this.state.scorecards.filter(s => s.status != completedStatus);
-    const completeScorecards = this.state.scorecards.filter(s => s.status == completedStatus);
-
-    const titleSize = getDeviceStyle(16, wp(mdLabelSize));
+    const progressScorecards = this.state.scorecards.filter(s => !s.finished);
+    const finishedScorecards = this.state.scorecards.filter(s => (s.finished && !s.isUploaded));
+    const submittedScorecards = this.state.scorecards.filter(s => s.isUploaded)
     const scorecardUuid = this.state.selectedScorecard ? this.state.selectedScorecard.uuid : '';
 
     if (!this.state.scorecards.length) {
@@ -128,24 +138,15 @@ class ScorecardList extends Component {
 
     return (
       <View>
-        <ScrollView contentContainerStyle={{backgroundColor: '#eee', flexGrow: 1, paddingBottom: 20}} stickyHeaderIndices={[0, 2]}>
-          { !!progressScorecards.length &&
-            <View style={{backgroundColor: '#eee', paddingHorizontal: 16, paddingVertical: 10}}>
-              <Text style={{fontSize: titleSize}}>
-                { translations.progressScorecards }
-              </Text>
-            </View>
-          }
+        <ScrollView contentContainerStyle={{backgroundColor: '#eee', flexGrow: 1, paddingBottom: 20}} stickyHeaderIndices={[0, 2, 4]}>
+          { !!progressScorecards.length && this.renderSectionTitle(translations.progressScorecards) }
           { this.renderScorecardList(progressScorecards) }
 
-          { !!completeScorecards.length &&
-            <View style={{backgroundColor: '#eee', paddingHorizontal: 16, paddingVertical: 10}}>
-              <Text style={{fontSize: titleSize}}>
-                { translations.completeScorecards }
-              </Text>
-            </View>
-          }
-          { this.renderScorecardList(completeScorecards) }
+          { !!finishedScorecards.length && this.renderSectionTitle(translations.completeScorecards) }
+          { this.renderScorecardList(finishedScorecards) }
+
+          { !!submittedScorecards.length && this.renderSectionTitle(translations.submittedScorecards) }
+          { this.renderScorecardList(submittedScorecards) }
         </ScrollView>
 
         <MessageModal

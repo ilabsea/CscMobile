@@ -273,5 +273,6 @@
   "chooseImage": "ជ្រើសរើសរូបភាព",
   "takePhoto": "ថតរូប",
   "viewImage": "មើលរូបភាព",
-  "noImageIsSelected": "មិនមានរូបភាពត្រូវបានជ្រើសរើស"
+  "noImageIsSelected": "មិនមានរូបភាពត្រូវបានជ្រើសរើស",
+  "submittedScorecards": "ប័ណ្ណដាក់ពិន្ទុដែលបានដាក់ស្នើរួច"
 }

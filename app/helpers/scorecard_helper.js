@@ -2,7 +2,7 @@ import { ERROR_SCORECARD_COMPLETED, ERROR_SCORECARD_EXECUTED } from '../constant
 import Moment from 'moment';
 import moment from "moment/min/moment-with-locales";
 import { environment } from '../config/environment';
-import { SCORECARD_RESULT } from '../constants/scorecard_step_constant';
+// import { SCORECARD_RESULT } from '../constants/scorecard_step_constant';
 import { selfAssessment } from '../constants/scorecard_constant';
 import Color from '../themes/color';
 
@@ -49,10 +49,10 @@ const scorecardHelper = (() => {
   function getStatusIcon(scorecard) {
     if (scorecard.isUploaded)
       return 'lock';
-    else if (scorecard.status != SCORECARD_RESULT)
-      return 'hourglass-half';
-    else if (scorecard.status == SCORECARD_RESULT)
+    else if (scorecard.finished)
       return 'check';
+
+    return 'hourglass-half';
   }
 
   function getSortedSubmittedScorecard(scorecards) {
@@ -62,7 +62,7 @@ const scorecardHelper = (() => {
   function iconColor(scorecard) {
     if (scorecard.isUploaded)
       return Color.lightGrayColor;
-    else if (scorecard.status == SCORECARD_RESULT)
+    else if (scorecard.finished)
       return Color.successColor;
 
     return Color.clickableColor;
